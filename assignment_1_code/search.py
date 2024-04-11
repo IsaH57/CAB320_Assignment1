@@ -1,4 +1,3 @@
-
 """
 
     2020 Generic search module for Python 3.5+
@@ -33,7 +32,7 @@ import itertools
 import functools
 import heapq
 
-import collections # for dequeue
+import collections  # for dequeue
 
 
 def memoize(fn, slot=None, maxsize=128):
@@ -56,7 +55,7 @@ def memoize(fn, slot=None, maxsize=128):
     return memoized_fn
 
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Queues: Stack, FIFOQueue, PriorityQueue
 # Stack and FIFOQueue are implemented as list and collection.deque
 # PriorityQueue is implemented here
@@ -95,8 +94,10 @@ class FIFOQueue(collections.deque):
     """
     A First-In-First-Out Queue.
     """
+
     def __init__(self):
         collections.deque.__init__(self)
+
     def pop(self):
         return self.popleft()
 
@@ -164,7 +165,7 @@ class PriorityQueue:
         heapq.heapify(self.heap)
 
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 class Problem(object):
     """The abstract class for a formal problem.  You should subclass
@@ -198,7 +199,6 @@ class Problem(object):
         method if checking against a single self.goal is not enough."""
         return state == self.goal
 
-
     def path_cost(self, c, state1, action, state2):
         """Return the cost of a solution path that arrives at state2 from
         state1 via action, assuming cost c to get up to state1. If the problem
@@ -212,7 +212,8 @@ class Problem(object):
         and related algorithms try to maximize this value."""
         raise NotImplementedError
 
-#______________________________________________________________________________
+
+# ______________________________________________________________________________
 
 class Node:
     """
@@ -240,13 +241,14 @@ class Node:
         return "<Node {}>".format(self.state)
 
     def __lt__(self, node):
+        # return self.path_cost < node.path_cost
         return self.state < node.state
 
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""
         print("Actions: " + str(problem.actions(self.state)))
         child = [self.child_node(problem, action)
-                for action in problem.actions(self.state)]
+                 for action in problem.actions(self.state)]
         print("Child: " + "\n" +
               str(child))
         return child
@@ -257,9 +259,9 @@ class Node:
         Create and return a child node corresponding to 'action'
         """
         next_state = problem.result(self.state, action)
-        return Node(next_state, # next_state is a state
-                    self, # parent is a node
-                    action, # from this state to next state
+        return Node(next_state,  # next_state is a state
+                    self,  # parent is a node
+                    action,  # from this state to next state
                     problem.path_cost(self.path_cost, self.state, action, next_state)
                     )
 
@@ -292,7 +294,8 @@ class Node:
         # with the same state in a Hash Table        
         return hash(self.state)
 
-#______________________________________________________________________________
+
+# ______________________________________________________________________________
 
 # Uninformed Search algorithms
 
@@ -326,11 +329,11 @@ def graph_search(problem, frontier):
     """
     assert isinstance(problem, Problem)
     frontier.append(Node(problem.initial))
-    explored = set() # initial empty set of explored states
+    explored = set()  # initial empty set of explored states
     while frontier:
-        #print(f"Frontier: {frontier}")
+        print(f"Frontier: {frontier}")
         node = frontier.pop()
-        #print(f"Exploring node: {node.state}")
+        # print(f"Exploring node: {node.state}")
         if problem.goal_test(node.state):
             print("Goal state found!")
             return node
@@ -398,7 +401,6 @@ def best_first_tree_search(problem, f):
     return None
 
 
-
 def best_first_graph_search(problem, f):
     """
     Search the nodes with the lowest f scores first.
@@ -411,7 +413,7 @@ def best_first_graph_search(problem, f):
         return node
     frontier = PriorityQueue(f=f)
     frontier.append(node)
-    explored = set() # set of states
+    explored = set()  # set of states
     while frontier:
         node = frontier.pop()
         if problem.goal_test(node.state):
@@ -425,8 +427,8 @@ def best_first_graph_search(problem, f):
                 # incumbent node that shares the same state as 
                 # the node child.  Read implementation of PriorityQueue
                 if f(child) < frontier[child]:
-                    del frontier[child] # delete the incumbent node
-                    frontier.append(child) #
+                    del frontier[child]  # delete the incumbent node
+                    frontier.append(child)  #
     return None
 
 
@@ -437,6 +439,7 @@ def uniform_cost_search(problem):
 
 def depth_limited_search(problem, limit=50):
     "[Fig. 3.17]"
+
     def recursive_dls(node, problem, limit):
         if problem.goal_test(node.state):
             return node
@@ -466,19 +469,22 @@ def iterative_deepening_search(problem):
         if result != 'cutoff':
             return result
 
-#______________________________________________________________________________
+
+# ______________________________________________________________________________
 # Informed (Heuristic) Search
 
 greedy_best_first_graph_search = best_first_graph_search
+
+
 # Greedy best-first search is accomplished by specifying f(n) = h(n).
 
-#TODO enable!
-#def astar_graph_search(problem, h=None):
-    #"""A* search is best-first graph search with f(n) = g(n)+h(n).
-    #You need to specify the h function when you call astar_search, or
-    #else in your Problem subclass."""
- #   h = memoize(h or problem.h, slot='h')
-  #  return best_first_graph_search(problem, lambda n: n.path_cost + h(n))
+# TODO enable!
+# def astar_graph_search(problem, h=None):
+# """A* search is best-first graph search with f(n) = g(n)+h(n).
+# You need to specify the h function when you call astar_search, or
+# else in your Problem subclass."""
+#   h = memoize(h or problem.h, slot='h')
+#  return best_first_graph_search(problem, lambda n: n.path_cost + h(n))
 
 
 def astar_graph_search(problem, h=None):
@@ -488,11 +494,11 @@ def astar_graph_search(problem, h=None):
     h = memoize(h or problem.h, slot='h')
 
     # Print statement for debugging
-    #print(f'Using heuristic function: {h.__name__}')
+    # print(f'Using heuristic function: {h.__name__}')
 
     def f(n):
         cost = n.path_cost + h(n)
-        #print(f'Calculating f value for node {n}: {cost}')
+        # print(f'Calculating f value for node {n}: {cost}')
         return cost
 
     return best_first_graph_search(problem, f)
@@ -505,10 +511,9 @@ def astar_tree_search(problem, h=None):
     h = memoize(h or problem.h, slot='h')
     return best_first_tree_search(problem, lambda n: n.path_cost + h(n))
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 #
 
 # + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
 #                              CODE CEMETARY
 # + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
-

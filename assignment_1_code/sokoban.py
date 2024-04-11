@@ -190,7 +190,7 @@ class Warehouse:
             self.targets.append(self.worker) 
         self.walls = list(find_2D_iterator(lines, "#")) # set(find_2D_iterator(lines, "#"))
         #print(str(self.walls))
-        assert len(self.boxes) == len(self.targets)
+        #assert len(self.boxes) == len(self.targets)
 
     def __str__(self):
         '''

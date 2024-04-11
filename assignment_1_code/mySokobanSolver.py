@@ -207,7 +207,7 @@ class SokobanPuzzle(search.Problem):
     #
     #     You are allowed (and encouraged) to use auxiliary functions and classes
 
-    def __init__(self, warehouse, initial=None, goal=None):
+    def __init__2(self, warehouse, initial=None, goal=None):
         self.warehouse = warehouse
         if initial is None:
             self.initial = warehouse
@@ -220,6 +220,11 @@ class SokobanPuzzle(search.Problem):
             self.goal = goal
         self.taboo_cells = taboo_cells(self.initial)
 
+    def __init__(self, initial):
+        self.initial = initial
+        self.goal = str(self.initial).replace("$", " ").replace(".", "*").replace("@", " ")
+        self.taboo_cells = taboo_cells(self.initial)
+
     def actions(self, state):
         """
         Return the list of actions that can be executed in the given state.
@@ -229,9 +234,11 @@ class SokobanPuzzle(search.Problem):
         """
 
         move = []
-        # wh = Warehouse.from_string(state, state.state)
+        current_warehouse = sokoban.Warehouse()
+        current_warehouse.extract_locations(state.split(sep="\n"))
 
-        worker_x, worker_y, walls, boxes = state.worker[0], state.worker[1], state.walls, state.boxes
+        worker_x, worker_y, walls, boxes = current_warehouse.worker[0], current_warehouse.worker[1], current_warehouse.walls, current_warehouse.boxes
+
 
         def valid_move(dx, dy):
             # print("validmove? x " + str(dx) + " y " + str(dy))
@@ -273,14 +280,21 @@ class SokobanPuzzle(search.Problem):
         action in the given state. The action must be one of
         self.actions(state)."""
 
-        worker = list(state.worker)
-        boxes = list(state.boxes)
+        current_warehouse = sokoban.Warehouse()
+        current_warehouse.extract_locations(state.split(sep="\n"))
+
+        worker, walls, boxes = current_warehouse.worker, current_warehouse.walls, current_warehouse.boxes
+
+        #worker = list(state.worker)
+        #boxes = list(state.boxes)
         # print(str(worker))
         # print(str(boxes))
         # boxes = [(box[0] + worker[0] - state.worker[0], box[1] + worker[1] - state.worker[1]) if box == (
         # state.worker[0], state.worker[1]) else box for box in state.boxes]
-        worker[0] += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
-        worker[1] += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
+        (x,y) = worker
+        x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
+        y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
+        worker = (x, y)
 
         # for (x, y) in boxes:
         for i in range(len(boxes)):
@@ -294,7 +308,7 @@ class SokobanPuzzle(search.Problem):
             # print("FOR x: " + str(x) + " y: " + str(y) + " tupel " + str((x, y)))
             boxes[i] = (x, y)
         # print("boxes: " + str(boxes))
-        return state.copy(tuple(worker), boxes)
+        return str(current_warehouse)
 
     # TODO Check if correct
     def path_cost(self, c, state1, action, state2):
@@ -453,9 +467,11 @@ def solve_weighted_sokoban(warehouse):
     # print(goal)
 
     puzzle = SokobanPuzzle(warehouse)
-    puzzle_solution = search.breadth_first_graph_search(puzzle)
+    puzzle2 = SokobanPuzzle(warehouse_string)
+
+    puzzle_solution = search.breadth_first_graph_search(puzzle2)
     #puzzle_solution = search.depth_first_graph_search(puzzle)
-    #puzzle_solution = search.astar_graph_search(puzzle, heuristic1)
+    #puzzle_solution = search.astar_graph_search(puzzle2, heuristic)
 
     step_move_solution = []
     path_cost = 0
@@ -463,8 +479,7 @@ def solve_weighted_sokoban(warehouse):
      #   step_move_solution.append(node.action)
     #print(str(step_move_solution))
     step_move_solution = puzzle_solution.solution()
-    #path_cost = puzzle_solution.path_cost() #doesnt work
-
+    path_cost = puzzle_solution.path_cost
     # if SokobanPuzzle.goal_test(warehouse, ):
     #   return step_move_solution, 0
     # TODO enable
@@ -481,68 +496,11 @@ def solve_weighted_sokoban(warehouse):
     else:
         #print("SOL: " + str(puzzle_solution))
         #action_seq = puzzle.actions(puzzle_solution)
-        return step_move_solution, 0
-
-def heuristic1(state):
-    # Implement your heuristic function here
-    # Calculate the heuristic value based on the state
-    # For example, you can calculate the Manhattan distance between boxes and targets
-    return sum(
-        abs(box[0] - target[0]) + abs(box[1] - target[1]) for box in state.state.boxes for target in state.state.targets)
-
-def heuristic2(n):
-    warehouse = n.state  # Assuming state is stored as a warehouse object
-
-    num_targets = 0
-    for target in warehouse.targets:
-        if target in warehouse.boxes:
-            num_targets += 1
-
-    heuristic = 0
-    for box in warehouse.boxes:
-        dist = 0
-        for target in warehouse.targets:
-            if target == '.':
-                dist += manhattan_distance(box, target)
-        heuristic += dist / num_targets
-
-    return heuristic
+        return step_move_solution, path_cost
 
 
-def heuristic3(n):
-    # Perform a manhattan distance heuristic
-    state = n.state
-
-    num_targets = len(state.targets)
-    heuristic = 0
-    test = 1
-    for box in wh.boxes:
-        # dist = 0
-        # for target in wh.targets:
-        #     dist+= manhattan_distance(box, target)
-        # heuristic += (dist/num_targets)
-        if test == 1:
-            dist = 0
-            for target in wh.targets:
-                dist += manhattan_distance(box, target)
-            heuristic += 0.8 * (dist / num_targets) + 0.5 * manhattan_distance(wh.worker, box)
-        else:
-            dist1 = []
-            for target in wh.targets:
-                dist1.append(manhattan_distance(box, target))
-            heuristic += 0.8 * min(dist1) + 0.5 * manhattan_distance(wh.worker, box)
-    print(str(heuristic))
-    return heuristic
-
-def heuristic4(state):
-    result_dist = 0
-    for box in state.state.boxes:
-        distances = []
-        for goal in state.state.targets:
-            if box[0] == goal[0] and box[1] == goal[1]:
-                distances.append(abs(box[0] - goal[0]) + abs(box[1] - goal[1]))
-        if distances:
-            result_dist += min(distances)
-    return result_dist
+def heuristic(node):
 
 
+    # Return the sum of distances as the heuristic value
+    return 1
