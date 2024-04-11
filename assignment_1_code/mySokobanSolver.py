@@ -237,8 +237,9 @@ class SokobanPuzzle(search.Problem):
         current_warehouse = sokoban.Warehouse()
         current_warehouse.extract_locations(state.split(sep="\n"))
 
-        worker_x, worker_y, walls, boxes = current_warehouse.worker[0], current_warehouse.worker[1], current_warehouse.walls, current_warehouse.boxes
-
+        #worker = current_warehouse.worker or current_warehouse.worker_on_a_target
+        worker, walls, boxes = current_warehouse.worker, current_warehouse.walls, current_warehouse.boxes
+        worker_x, worker_y = worker
 
         def valid_move(dx, dy):
             # print("validmove? x " + str(dx) + " y " + str(dy))
@@ -257,7 +258,7 @@ class SokobanPuzzle(search.Problem):
                 return False
             elif is_wall(worker_x + dx, worker_y + dy, walls):
                 return False
-            elif is_box(worker_x + 2 * dx, worker_y + 2 * dy, boxes) and is_wall(worker_x + 3 * dx, worker_y + 3 * dy, walls):
+            elif is_box(worker_x + 1 * dx, worker_y + 1 * dy, boxes) and is_wall(worker_x + 2 * dx, worker_y + 2 * dy, walls):
                 return False
             else:
                 return True
@@ -291,10 +292,17 @@ class SokobanPuzzle(search.Problem):
         # print(str(boxes))
         # boxes = [(box[0] + worker[0] - state.worker[0], box[1] + worker[1] - state.worker[1]) if box == (
         # state.worker[0], state.worker[1]) else box for box in state.boxes]
-        (x,y) = worker
+
+        (x, y) = worker
         x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
         y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
         worker = (x, y)
+
+        #(x, y) = worker
+        #x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
+        #y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
+        #worker = (x, y)
+        print("worker x " + str(worker[0]) + " worker y " + str(worker[1]))
 
         # for (x, y) in boxes:
         for i in range(len(boxes)):
@@ -307,7 +315,10 @@ class SokobanPuzzle(search.Problem):
                 # print("IF x: " + str(x) + " y: " + str(y))
             # print("FOR x: " + str(x) + " y: " + str(y) + " tupel " + str((x, y)))
             boxes[i] = (x, y)
-        # print("boxes: " + str(boxes))
+        print("wh: " + str(current_warehouse))
+
+        current_warehouse.worker = worker
+        current_warehouse.boxes = boxes
         return str(current_warehouse)
 
     # TODO Check if correct
