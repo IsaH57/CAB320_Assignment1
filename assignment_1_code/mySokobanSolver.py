@@ -160,6 +160,8 @@ def taboo_cells(warehouse):
 # TEST TODO: remove
 wh = Warehouse()
 wh.load_warehouse("./warehouses/warehouse_01.txt")
+
+
 # print(taboo_cells(wh))
 # TEST ENDE
 
@@ -224,7 +226,7 @@ class SokobanPuzzle(search.Problem):
     def __init__(self, initial):
         self.initial = initial.__str__()
         self.goal = initial.__str__().replace("$", " ").replace(".", "*").replace("@", " ")
-        #print(str(self.goal))
+        # print(str(self.goal))
         self.weights = initial.weights
         self.taboo_cells = taboo_cells(self.initial)
 
@@ -238,10 +240,10 @@ class SokobanPuzzle(search.Problem):
 
         move = []
         current_warehouse = sokoban.Warehouse()
-        #string = str(state).split(sep="\n")
+        # string = str(state).split(sep="\n")
         current_warehouse.extract_locations(state.split(sep="\n"))
 
-        #worker = current_warehouse.worker or current_warehouse.worker_on_a_target
+        # worker = current_warehouse.worker or current_warehouse.worker_on_a_target
         worker, walls, boxes = current_warehouse.worker, current_warehouse.walls, current_warehouse.boxes
         worker_x, worker_y = worker
 
@@ -262,7 +264,8 @@ class SokobanPuzzle(search.Problem):
                 return False
             elif is_wall(worker_x + dx, worker_y + dy, walls):
                 return False
-            elif is_box(worker_x + 1 * dx, worker_y + 1 * dy, boxes) and is_wall(worker_x + 2 * dx, worker_y + 2 * dy, walls):
+            elif is_box(worker_x + 1 * dx, worker_y + 1 * dy, boxes) and is_wall(worker_x + 2 * dx, worker_y + 2 * dy,
+                                                                                 walls):
                 return False
             else:
                 return True
@@ -290,8 +293,8 @@ class SokobanPuzzle(search.Problem):
 
         worker, walls, boxes = current_warehouse.worker, current_warehouse.walls, current_warehouse.boxes
 
-        #worker = list(state.worker)
-        #boxes = list(state.boxes)
+        # worker = list(state.worker)
+        # boxes = list(state.boxes)
         # print(str(worker))
         # print(str(boxes))
         # boxes = [(box[0] + worker[0] - state.worker[0], box[1] + worker[1] - state.worker[1]) if box == (
@@ -302,11 +305,11 @@ class SokobanPuzzle(search.Problem):
         y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
         worker = (x, y)
 
-        #(x, y) = worker
-        #x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
-        #y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
-        #worker = (x, y)
-        #print("worker x " + str(worker[0]) + " worker y " + str(worker[1]))
+        # (x, y) = worker
+        # x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
+        # y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
+        # worker = (x, y)
+        # print("worker x " + str(worker[0]) + " worker y " + str(worker[1]))
 
         # for (x, y) in boxes:
         for i in range(len(boxes)):
@@ -319,7 +322,7 @@ class SokobanPuzzle(search.Problem):
                 # print("IF x: " + str(x) + " y: " + str(y))
             # print("FOR x: " + str(x) + " y: " + str(y) + " tupel " + str((x, y)))
             boxes[i] = (x, y)
-        #print("wh: " + str(current_warehouse))
+        # print("wh: " + str(current_warehouse))
 
         current_warehouse.worker = worker
         current_warehouse.boxes = boxes
@@ -338,28 +341,33 @@ class SokobanPuzzle(search.Problem):
         wh_state2 = sokoban.Warehouse()
         wh_state2.from_string(state2)
         wh_state2.weights = self.weights
-        if (self.weights == [0,0]):
+
+        if (self.weights == [0, 0]):
             return c + 1
-#       print("current weights: " + str(self.weights))
+        #       print("current weights: " + str(self.weights))
         for i in range(len(wh_state2.boxes)):
             if wh_state2.boxes[i] != wh_state1.boxes[i]:
                 c += self.weights[i]
+            else:
+                c += 1
         return c
 
     def goal_test(self, state):
         """Return True if the state is a goal. The default method compares the
              state to self.goal, as specified in the constructor. Override this
              method if checking against a single self.goal is not enough."""
-        #print("my goaltest: ")
-        #print(str(state))
-        #print(str(self.goal))
+        # print("my goaltest: ")
+        # print(str(state))
+        # print(str(self.goal))
         warehouse_string = state.__str__()
         goal = warehouse_string.replace("$", " ").replace(".", "*").replace("@", " ")
 
         return warehouse_string.replace("@", " ") == self.goal
 
+
 def manhattan_distance(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -491,19 +499,19 @@ def solve_weighted_sokoban(warehouse):
     path_cost = 0
     warehouse_string = warehouse.__str__()
     # print(warehouse_string)
-    #goal = warehouse_string.replace("$", " ").replace(".", "*")
+    # goal = warehouse_string.replace("$", " ").replace(".", "*")
     # print(goal)
 
     puzzle = SokobanPuzzle(warehouse)
 
     start = time.time()
     #puzzle_solution = search.breadth_first_graph_search(puzzle)
-    #puzzle_solution = search.depth_first_graph_search(puzzle)
+    # puzzle_solution = search.depth_first_graph_search(puzzle)
     puzzle_solution = search.astar_graph_search(puzzle, heuristic5)
 
-    #for node in puzzle_solution.path()[1:]:
-     #   step_move_solution.append(node.action)
-    #print(str(step_move_solution))
+    # for node in puzzle_solution.path()[1:]:
+    #   step_move_solution.append(node.action)
+    # print(str(step_move_solution))
     step_move_solution = puzzle_solution.solution()
     path_cost = puzzle_solution.path_cost
 
@@ -518,13 +526,13 @@ def solve_weighted_sokoban(warehouse):
     # TODO remove
     if puzzle_solution is None:
         return ['Impossible'], -1
-    #elif check_elem_action_seq(warehouse, puzzle_solution.action) == "Impossible":
-     #   print(str(puzzle_solution.action))
-      #  return ['Impossible'], -2
+    # elif check_elem_action_seq(warehouse, puzzle_solution.action) == "Impossible":
+    #   print(str(puzzle_solution.action))
+    #  return ['Impossible'], -2
 
     else:
-        #print("SOL: " + str(puzzle_solution))
-        #action_seq = puzzle.actions(puzzle_solution)
+        # print("SOL: " + str(puzzle_solution))
+        # action_seq = puzzle.actions(puzzle_solution)
         #
         print(str(check_elem_action_seq(warehouse, step_move_solution)))
         return step_move_solution, path_cost
@@ -535,7 +543,9 @@ def heuristic1(state):
     # Calculate the heuristic value based on the state
     # For example, you can calculate the Manhattan distance between boxes and targets
     return sum(
-        abs(box[0] - target[0]) + abs(box[1] - target[1]) for box in state.state.boxes for target in state.state.targets)
+        abs(box[0] - target[0]) + abs(box[1] - target[1]) for box in state.state.boxes for target in
+        state.state.targets)
+
 
 def heuristic2(n):
     warehouse = n.state  # Assuming state is stored as a warehouse object
@@ -581,6 +591,7 @@ def heuristic3(n):
     print(str(heuristic))
     return heuristic
 
+
 def heuristic4(state):
     result_dist = 0
     for box in state.state.boxes:
@@ -592,15 +603,16 @@ def heuristic4(state):
             result_dist += min(distances)
     return result_dist
 
+
 def heuristic5(node):
     warehouse = sokoban.Warehouse()
     warehouse.extract_locations(node.state.split(sep="\n"))
-    #warehouse = n.state  # Assuming state is stored as a warehouse object
+    # warehouse = n.state  # Assuming state is stored as a warehouse object
 
     num_targets = 0
     for target in warehouse.targets:
-        #if target in warehouse.boxes:
-            num_targets += 1
+        # if target in warehouse.boxes:
+        num_targets += 1
 
     heuristic = 0
     for box in warehouse.boxes:
