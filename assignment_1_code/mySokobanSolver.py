@@ -442,6 +442,7 @@ def check_elem_action_seq(warehouse, action_seq):
 
         return x, y
 
+    print("STEP-TEST")
     for action in action_seq:
         x, y = move_player(worker[0], worker[1], warehouse, action)
         if x != -1:
@@ -449,17 +450,18 @@ def check_elem_action_seq(warehouse, action_seq):
             warehouse = warehouse.copy(worker, warehouse.boxes, warehouse.weights)
             # TEST TODO remove
             # print("Action " + action + " is not valid")
-            # print(str(warehouse))
+            print(str(warehouse))
             # TEST ENDE
         else:
             # TEST TODO remove
             # print("Action " + action + " is not valid")
-            # print(str(warehouse))
+            print(str(warehouse))
             # TEST ENDE
             warehouse = warehouse.copy(worker, warehouse.boxes, warehouse.weights)
             return DEFAULTRETURN
 
-    # print(warehouse.__str__())  # TODO remove
+
+    #print(str(warehouse))  # TODO remove
     new_state = warehouse.__str__()
     return new_state
 
@@ -505,9 +507,9 @@ def solve_weighted_sokoban(warehouse):
     puzzle = SokobanPuzzle(warehouse)
 
     start = time.time()
-    #puzzle_solution = search.breadth_first_graph_search(puzzle)
-    # puzzle_solution = search.depth_first_graph_search(puzzle)
-    puzzle_solution = search.astar_graph_search(puzzle, heuristic5)
+    puzzle_solution = search.breadth_first_graph_search(puzzle)
+    #puzzle_solution = search.depth_first_graph_search(puzzle)
+    #puzzle_solution = search.astar_graph_search(puzzle, heuristic5)
 
     # for node in puzzle_solution.path()[1:]:
     #   step_move_solution.append(node.action)
@@ -523,6 +525,8 @@ def solve_weighted_sokoban(warehouse):
     # elif puzzle_solution is None or check_elem_action_seq(warehouse, puzzle.actions(puzzle_solution)) == "Impossible":
     # return ['Impossible'], -1
 
+    sol9 =['Up', 'Right', 'Right', 'Down', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Right', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right',
+      'Down', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left']
     # TODO remove
     if puzzle_solution is None:
         return ['Impossible'], -1
@@ -534,7 +538,7 @@ def solve_weighted_sokoban(warehouse):
         # print("SOL: " + str(puzzle_solution))
         # action_seq = puzzle.actions(puzzle_solution)
         #
-        print(str(check_elem_action_seq(warehouse, step_move_solution)))
+        #print(str(check_elem_action_seq(warehouse, sol9)))
         return step_move_solution, path_cost
 
 
