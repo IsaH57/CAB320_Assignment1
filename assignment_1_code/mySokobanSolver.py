@@ -338,10 +338,11 @@ class SokobanPuzzle(search.Problem):
         wh_state2 = sokoban.Warehouse()
         wh_state2.from_string(state2)
         wh_state2.weights = self.weights
-
+        if (self.weights == [0,0]):
+            return c + 1
 #       print("current weights: " + str(self.weights))
         for i in range(len(wh_state2.boxes)):
-            if wh_state2.boxes[i] == wh_state1.boxes[i]:
+            if wh_state2.boxes[i] != wh_state1.boxes[i]:
                 c += self.weights[i]
         return c
 
@@ -608,9 +609,5 @@ def heuristic5(node):
             if target == '.':
                 dist += manhattan_distance(box, target)
         heuristic += dist / num_targets
-
-    # Consider weights
-    #for box, weight in zip(warehouse.boxes, warehouse.weights):
-     #   heuristic += weight
 
     return heuristic
