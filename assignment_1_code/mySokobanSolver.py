@@ -46,12 +46,10 @@ def my_team():
     
     '''
     return [(11921048, 'Isabell Sophie', 'Hans')]
-    # raise NotImplementedError()
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# FROM sol2.py TODO remove this comment
 def taboo_cells(warehouse):
     """
     Identify the taboo cells of a warehouse. A cell is called taboo if whenever
@@ -78,12 +76,17 @@ def taboo_cells(warehouse):
     REMOVE = ['$', '@']
     TARGET = ['.', '!', '*']
 
-    def iscorner(x, y, wh, wall=0):
+    def is_corner(x, y, wh, wall=0):
         """
-        Check if a cell is a corner cell.
+        A function to check if a given point is a corner by counting adjacent walls.
 
-        @Return
-            True if cell is corner, False otherwise
+        @param x (int): x-coordinate of the point
+        @param y (int): y-coordinate of the point
+        @param wh (list): 2D list representing the walls
+        @param wall (int, optional): Value representing a wall, default is 0
+
+        @return
+            bool: True if the point is a corner, False otherwise
         """
 
         # add if vertical walls
@@ -99,8 +102,13 @@ def taboo_cells(warehouse):
     # convert warehouse string to 2D array
     warehouse_2d = [list(line) for line in warehouse_str.split('\n')]
 
-    # rule 1
     def rule1(wh):
+        """
+        Calculate the given input 'wh' which is a 2D list representing the height and width according to rule 1.
+        Modifies the 'wh' list by changing certain cells based on specific conditions.
+
+        @param wh (list): 2D list representing the walls
+        """
         height = len(wh)
         width = len(wh[0])
 
@@ -113,24 +121,28 @@ def taboo_cells(warehouse):
                     if all(cell == ' ' for cell in wh[y][x:]):
                         break
                     current_cell = wh[y][x]
-                    if current_cell not in TARGET and current_cell != WALL and iscorner(x, y, wh):
+                    if current_cell not in TARGET and current_cell != WALL and is_corner(x, y, wh):
                         wh[y][x] = TABOO
 
-    # rule2
     def rule2(wh):
+        """
+        Process the given 2D array 'wh' according to rule 2.
+
+        @param wh (list): 2D list representing the walls
+        """
         height = len(wh)
         width = len(wh[0])
 
         for y in range(1, height - 1):
             for x in range(1, width - 1):
-                if wh[y][x] == TABOO and iscorner(x, y, wh):
+                if wh[y][x] == TABOO and is_corner(x, y, wh):
                     # Process row to the right of the corner taboo cell
                     row = wh[y][x + 1:]
                     for x2, cell in enumerate(row):
                         if cell in TARGET or cell == WALL:
                             break
-                        if cell == TABOO and iscorner(x2 + x + 1, y, wh):
-                            if all(iscorner(x3, y, wh, 1) for x3 in range(x + 1, x2 + x + 1)):
+                        if cell == TABOO and is_corner(x2 + x + 1, y, wh):
+                            if all(is_corner(x3, y, wh, 1) for x3 in range(x + 1, x2 + x + 1)):
                                 for x4 in range(x + 1, x2 + x + 1):
                                     wh[y][x4] = 'X'
 
@@ -139,34 +151,37 @@ def taboo_cells(warehouse):
                     for y2, cell in enumerate(col):
                         if cell in TARGET or cell == WALL:
                             break
-                        if cell == TABOO and iscorner(x, y2 + y + 1, wh):
-                            if all(iscorner(x, y3, wh, 1) for y3 in range(y + 1, y2 + y + 1)):
+                        if cell == TABOO and is_corner(x, y2 + y + 1, wh):
+                            if all(is_corner(x, y3, wh, 1) for y3 in range(y + 1, y2 + y + 1)):
                                 for y4 in range(y + 1, y2 + y + 1):
                                     wh[y4][x] = 'X'
 
+    # apply rules
     rule1(warehouse_2d)
     rule2(warehouse_2d)
+
     # convert 2D array to string
     warehouse_str = '\n'.join([''.join(line) for line in warehouse_2d])
 
+    # remove unwanted characters
     for char in REMOVE + TARGET:
         warehouse_str = warehouse_str.replace(char, ' ')
 
-    # print(warehouse_str)  # TODO remove
     return warehouse_str
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# TEST TODO: remove
-wh = Warehouse()
-wh.load_warehouse("./warehouses/warehouse_01.txt")
-
-
-# print(taboo_cells(wh))
-# TEST ENDE
-
-
 def is_wall(x, y, walls):
+    """
+    Check if the given coordinates are part of the walls set.
+
+    @param x (int): The x-coordinate to check.
+    @param y (int): The y-coordinate to check.
+    @param walls (set): A set containing coordinates representing walls.
+
+    @return
+        bool: True if the coordinates are part of the walls set, False otherwise.
+    """
     if (x, y) in walls:
         return True
     else:
@@ -174,6 +189,16 @@ def is_wall(x, y, walls):
 
 
 def is_box(x, y, boxes):
+    """
+    Check if the given coordinates (x, y) are present in the list of boxes.
+
+    @param x: The x-coordinate to check
+    @param y: The y-coordinate to check
+    @param boxes: The list of boxes to search in
+
+    @return
+        True if the coordinates are in the list of boxes, False otherwise
+    """
     if (x, y) in boxes:
         return True
     else:
@@ -181,6 +206,16 @@ def is_box(x, y, boxes):
 
 
 def is_taboo(x, y, taboos):
+    """
+    Check if the given coordinates are taboo in the provided grid.
+
+    @param x (int): The x-coordinate of the point to check.
+    @param y (int): The y-coordinate of the point to check.
+    @param taboos (str): A string representing the grid of taboo points.
+
+    @return
+        bool: True if the given coordinates are taboo, False otherwise.
+    """
     taboo_grid = [list(line) for line in taboos.split('\n')]
     if taboo_grid[y][x] == 'X':
         return True
@@ -210,23 +245,15 @@ class SokobanPuzzle(search.Problem):
     #
     #     You are allowed (and encouraged) to use auxiliary functions and classes
 
-    def __init__2(self, warehouse, initial=None, goal=None):
-        self.warehouse = warehouse
-        if initial is None:
-            self.initial = warehouse
-        else:
-            self.initial = initial
-        if goal is None:
-            warehouse_string = warehouse.__str__()
-            self.goal = warehouse_string.replace("$", " ").replace(".", "*").replace("@", " ")
-        else:
-            self.goal = goal
-        self.taboo_cells = taboo_cells(self.initial)
-
     def __init__(self, initial):
+        """
+        Initialize the object with the given initial state.
+
+        @param initial: The initial state of the object.
+        """
+        super().__init__(initial)
         self.initial = initial.__str__()
         self.goal = initial.__str__().replace("$", " ").replace(".", "*").replace("@", " ")
-        # print(str(self.goal))
         self.weights = initial.weights
         self.taboo_cells = taboo_cells(self.initial)
 
@@ -240,44 +267,56 @@ class SokobanPuzzle(search.Problem):
 
         move = []
         current_warehouse = sokoban.Warehouse()
-        # string = str(state).split(sep="\n")
         current_warehouse.extract_locations(state.split(sep="\n"))
-
-        # worker = current_warehouse.worker or current_warehouse.worker_on_a_target
         worker, walls, boxes = current_warehouse.worker, current_warehouse.walls, current_warehouse.boxes
         worker_x, worker_y = worker
 
         def valid_move(dx, dy):
-            # print("validmove? x " + str(dx) + " y " + str(dy))
+            """
+            A function to check if a move is valid based on the current worker position, walls, and boxes.
+            @param dx (int): The change in x-coordinate.
+            @param dy (int): The change in y-coordinate.
+            @return
+                bool: True if the move is valid, False otherwise.
+            """
+            # false if next cell in direction is wall
             if is_wall(worker_x + dx, worker_y + dy, walls):
                 return False
+            # false if next cell in direction is box and next next cell is wall
             elif is_box(worker_x + dx, worker_y + dy, boxes) and is_wall(worker_x + 2 * dx, worker_y + 2 * dy, walls):
                 return False
             else:
                 return True
-            # return is_wall(worker_x + dx, worker_y + dy, walls) and is_box(
-            #   worker_x + dx, worker_y + dy, boxes)
 
         def valid_push(dx, dy):
-            # print("valid push? x " + str(dx) + " y " + str(dy))
+            """
+            A function to check if a push in a specified direction is valid based on certain conditions.
+            @param dx (int): The change in x-coordinate.
+            @param dy (int): The change in y-coordinate.
+            @return
+                bool: True if the push is valid, False otherwise.
+            """
+            # false if next cell in direction is taboo cell
             if is_taboo(worker_x + dx, worker_y + dy, self.taboo_cells):
                 return False
+            # false if next cell in direction is wall
             elif is_wall(worker_x + dx, worker_y + dy, walls):
                 return False
-            elif is_box(worker_x + 1 * dx, worker_y + 1 * dy, boxes) and is_wall(worker_x + 2 * dx, worker_y + 2 * dy,
-                                                                                 walls):
+            # false if next cell in direction is box and next next cell is wall
+            elif is_box(worker_x + dx, worker_y + dy, boxes) and is_wall(worker_x + 2 * dx, worker_y + 2 * dy,
+                                                                         walls):
                 return False
             else:
                 return True
-            # return is_taboo(worker_x + dx, worker_y + dy, self.taboo_cells) == False
 
+        # apply move and push rules
         for direction, dx, dy in [("Left", -1, 0), ("Right", 1, 0), ("Up", 0, -1), ("Down", 0, 1)]:
-            # if valid_move(dx, dy):
-            #   if valid_push(dx, dy):
-            #      move.append(direction)
+            # append if move to next cell in direction is valid
             if not is_box(worker_x + dx, worker_y + dy, boxes) and valid_move(dx, dy):
                 move.append(direction)
-            elif is_box(worker_x + dx, worker_y + dy, boxes) and not is_box(worker_x + 2 * dx, worker_y + 2 * dy, boxes) and valid_push(dx, dy):
+            # append if pushing box in next celll in direction is valid
+            elif is_box(worker_x + dx, worker_y + dy, boxes) and not is_box(worker_x + 2 * dx, worker_y + 2 * dy,
+                                                                            boxes) and valid_push(dx, dy):
                 move.append(direction)
 
         return move
@@ -293,42 +332,24 @@ class SokobanPuzzle(search.Problem):
 
         worker, walls, boxes = current_warehouse.worker, current_warehouse.walls, current_warehouse.boxes
 
-        # worker = list(state.worker)
-        # boxes = list(state.boxes)
-        # print(str(worker))
-        # print(str(boxes))
-        # boxes = [(box[0] + worker[0] - state.worker[0], box[1] + worker[1] - state.worker[1]) if box == (
-        # state.worker[0], state.worker[1]) else box for box in state.boxes]
-
+        # apply action on worker
         (x, y) = worker
         x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
         y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
         worker = (x, y)
 
-        # (x, y) = worker
-        # x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
-        # y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
-        # worker = (x, y)
-        # print("worker x " + str(worker[0]) + " worker y " + str(worker[1]))
-
-        # for (x, y) in boxes:
+        # apply action on boxes
         for i in range(len(boxes)):
             (x, y) = boxes[i]
-            # print("worker x " + str(worker[0]) + " worker y " + str(worker[1]) + " box x " + str(x) + " box y " + str(y))
             if x == worker[0] and y == worker[1]:
-                # print("true")
                 x += {'Left': -1, 'Right': 1, 'Up': 0, 'Down': 0}[action]
                 y += {'Left': 0, 'Right': 0, 'Up': -1, 'Down': 1}[action]
-                # print("IF x: " + str(x) + " y: " + str(y))
-            # print("FOR x: " + str(x) + " y: " + str(y) + " tupel " + str((x, y)))
             boxes[i] = (x, y)
-        # print("wh: " + str(current_warehouse))
 
         current_warehouse.worker = worker
         current_warehouse.boxes = boxes
         return str(current_warehouse)
 
-    # TODO Check if correct
     def path_cost(self, c, state1, action, state2):
         """Return the cost of a solution path that arrives at state2 from
           state1 via action, assuming cost c to get up to state1. If the problem
@@ -342,11 +363,14 @@ class SokobanPuzzle(search.Problem):
         wh_state2.from_string(state2)
         wh_state2.weights = self.weights
 
-        if (self.weights == [0, 0]):
+        # path cost if no boxes are pushed
+        if self.weights == [0, 0]:
             return c + 1
-        #       print("current weights: " + str(self.weights))
+
+        # adding the weight to path cost if boxes are pushed
         for i in range(len(wh_state2.boxes)):
             if wh_state2.boxes[i] != wh_state1.boxes[i]:
+                # add weight of according box
                 c += self.weights[i]
             else:
                 c += 1
@@ -356,16 +380,19 @@ class SokobanPuzzle(search.Problem):
         """Return True if the state is a goal. The default method compares the
              state to self.goal, as specified in the constructor. Override this
              method if checking against a single self.goal is not enough."""
-        # print("my goaltest: ")
-        # print(str(state))
-        # print(str(self.goal))
-        warehouse_string = state.__str__()
-        goal = warehouse_string.replace("$", " ").replace(".", "*").replace("@", " ")
-
-        return warehouse_string.replace("@", " ") == self.goal
+        return state.__str__().replace("@", " ") == self.goal
 
 
 def manhattan_distance(a, b):
+    """
+    Calculate the Manhattan distance between two points.
+
+    @param a (tuple): The first point in the format (x, y).
+    @param b (tuple): The second point in the format (x, y).
+
+    @return
+        int: The Manhattan distance between the two points.
+    """
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
@@ -398,8 +425,18 @@ def check_elem_action_seq(warehouse, action_seq):
     worker = warehouse.worker
 
     def move_player(x, y, wh, dir):
-        next_x = 0
-        next_y = 0
+        """
+        A function that moves the player in a 2D grid based on the given direction.
+
+        @param x (int): The current x-coordinate of the player.
+        @param y (int): The current y-coordinate of the player.
+        @param wh (object): The object containing information about the walls and boxes in the grid.
+        @param dir (str): The direction in which the player should move ('Left', 'Right', 'Up', 'Down').
+
+        @return
+            Tuple[int, int]: The new x and y coordinates after the player moves. Returns (-1, 1) if an invalid direction is provided, (-1, -1) if the next position is a wall, or if the next position contains a box and moving the box is not possible.
+        """
+        # set values for next_x and next_y according to direction
         if dir == 'Left':
             next_x = x - 1
             next_y = y
@@ -415,9 +452,12 @@ def check_elem_action_seq(warehouse, action_seq):
         else:
             return -1, 1
 
+        # check if next position is a wall
         if (next_x, next_y) in wh.walls:
             return -1, -1
+        # check if next position is a box
         elif (next_x, next_y) in wh.boxes:
+            # check if box can be moved
             if dir == 'Left' and (next_x - 1, next_y) not in wh.walls:
                 wh.boxes.remove((next_x, next_y))
                 wh.boxes.append((next_x - 1, next_y))
@@ -442,33 +482,16 @@ def check_elem_action_seq(warehouse, action_seq):
 
         return x, y
 
-    #print("STEP-TEST")
     for action in action_seq:
         x, y = move_player(worker[0], worker[1], warehouse, action)
         if x != -1:
             worker = x, y
             warehouse = warehouse.copy(worker, warehouse.boxes, warehouse.weights)
-            # TEST TODO remove
-            # print("Action " + action + " is not valid")
-            #print(str(warehouse))
-            # TEST ENDE
         else:
-            # TEST TODO remove
-            # print("Action " + action + " is not valid")
-            #print(str(warehouse))
-            # TEST ENDE
-            warehouse = warehouse.copy(worker, warehouse.boxes, warehouse.weights)
             return DEFAULTRETURN
 
-
-    #print(str(warehouse))  # TODO remove
     new_state = warehouse.__str__()
     return new_state
-
-
-# TODO remove
-# Test
-check_elem_action_seq(wh, ['Down', 'Right', 'Up', 'Down'])
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -479,11 +502,9 @@ def solve_weighted_sokoban(warehouse):
     It returns the two items. The first item is an action sequence solution. 
     The second item is the total cost of this action sequence.
     
-    @param 
-     warehouse: a valid Warehouse object
+    @param warehouse: a valid Warehouse object
 
     @return
-    
         If puzzle cannot be solved 
             return 'Impossible', None
         
@@ -497,74 +518,51 @@ def solve_weighted_sokoban(warehouse):
 
     '''
 
-    step_move_solution = []
-    path_cost = 0
-    warehouse_string = warehouse.__str__()
-    # print(warehouse_string)
-    # goal = warehouse_string.replace("$", " ").replace(".", "*")
-    # print(goal)
     DEFAULTRETURN = 'Impossible'
     puzzle = SokobanPuzzle(warehouse)
 
     start = time.time()
-    #puzzle_solution = search.breadth_first_graph_search(puzzle)
-    #puzzle_solution = search.depth_first_graph_search(puzzle)
-    puzzle_solution = search.astar_graph_search(puzzle, sokoban_heuristic)
+    # different search algorithms
+    # puzzle_solution = search.breadth_first_graph_search(puzzle)
+    # puzzle_solution = search.depth_first_graph_search(puzzle)
+    puzzle_solution = search.astar_graph_search(puzzle, heuristic4)
 
-    # for node in puzzle_solution.path()[1:]:
-    #   step_move_solution.append(node.action)
-    # print(str(step_move_solution))
-    #step_move_solution = puzzle_solution.solution()
-    #path_cost = puzzle_solution.path_cost
-
-    #end = time.time()
-    #print("Time: " + str(end - start))
-    # if SokobanPuzzle.goal_test(warehouse, ):
-    #   return step_move_solution, 0
-    # TODO enable
-    # elif puzzle_solution is None or check_elem_action_seq(warehouse, puzzle.actions(puzzle_solution)) == "Impossible":
-    # return ['Impossible'], -1
-
-    sol9 =['Up', 'Right', 'Right', 'Down', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Right', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right',
-      'Down', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left']
-    # TODO remove
     if puzzle_solution is None:
+        # puzzle cannot be solved
         end = time.time()
         print("Time: " + str(end - start))
         return DEFAULTRETURN, None
-    # elif check_elem_action_seq(warehouse, puzzle_solution.action) == "Impossible":
-    #   print(str(puzzle_solution.action))
-    #  return ['Impossible'], -2
-
     else:
+        # puzzle can be solved
+        # get action sequence
         step_move_solution = puzzle_solution.solution()
+        # get total path cost
         path_cost = puzzle_solution.path_cost
 
         end = time.time()
         print("Time: " + str(end - start))
-        # print("SOL: " + str(puzzle_solution))
-        # action_seq = puzzle.actions(puzzle_solution)
-        #
-        #print(str(check_elem_action_seq(warehouse, sol9)))
         return step_move_solution, path_cost
 
 
-def heuristic1(state):
+def heuristic1(node):
     # Implement your heuristic function here
     # Calculate the heuristic value based on the state
     # For example, you can calculate the Manhattan distance between boxes and targets
+    warehouse = sokoban.Warehouse()
+    warehouse.extract_locations(node.state.split(sep="\n"))
     return sum(
-        abs(box[0] - target[0]) + abs(box[1] - target[1]) for box in state.state.boxes for target in
-        state.state.targets)
+        abs(box[0] - target[0]) + abs(box[1] - target[1]) for box in warehouse.boxes for target in
+        warehouse.targets)
 
 
-def heuristic2(n):
-    warehouse = n.state  # Assuming state is stored as a warehouse object
+def heuristic2(node):
+    warehouse = sokoban.Warehouse()
+    warehouse.extract_locations(node.state.split(sep="\n"))  # Assuming state is stored as a warehouse object
 
     num_targets = 0
     for target in warehouse.targets:
-        if target in warehouse.boxes:
-            num_targets += 1
+        # if target in warehouse.boxes:
+        num_targets += 1
 
     heuristic = 0
     for box in warehouse.boxes:
@@ -577,37 +575,41 @@ def heuristic2(n):
     return heuristic
 
 
-def heuristic3(n):
+def heuristic3(node):
     # Perform a manhattan distance heuristic
-    state = n.state
+    warehouse = sokoban.Warehouse()
+    warehouse.extract_locations(node.state.split(sep="\n"))
 
-    num_targets = len(state.targets)
+    num_targets = len(warehouse.targets)
     heuristic = 0
     test = 1
-    for box in wh.boxes:
+    for box in warehouse.boxes:
         # dist = 0
         # for target in wh.targets:
+
         #     dist+= manhattan_distance(box, target)
         # heuristic += (dist/num_targets)
         if test == 1:
             dist = 0
-            for target in wh.targets:
+            for target in warehouse.targets:
                 dist += manhattan_distance(box, target)
             heuristic += 0.8 * (dist / num_targets) + 0.5 * manhattan_distance(wh.worker, box)
         else:
             dist1 = []
-            for target in wh.targets:
+            for target in warehouse.targets:
                 dist1.append(manhattan_distance(box, target))
             heuristic += 0.8 * min(dist1) + 0.5 * manhattan_distance(wh.worker, box)
-    print(str(heuristic))
+    # print(str(heuristic))
     return heuristic
 
 
-def heuristic4(state):
+def heuristic4(node):
+    warehouse = sokoban.Warehouse()
+    warehouse.extract_locations(node.state.split(sep="\n"))
     result_dist = 0
-    for box in state.state.boxes:
+    for box in warehouse.boxes:
         distances = []
-        for goal in state.state.targets:
+        for goal in warehouse.targets:
             if box[0] == goal[0] and box[1] == goal[1]:
                 distances.append(abs(box[0] - goal[0]) + abs(box[1] - goal[1]))
         if distances:
@@ -635,7 +637,8 @@ def heuristic5(node):
 
     return heuristic
 
-def sokoban_heuristic(node):
+
+def heuristic6(node):
     warehouse = sokoban.Warehouse()
     warehouse.extract_locations(node.state.split(sep="\n"))
     total_distance = 0
@@ -657,4 +660,3 @@ def sokoban_heuristic(node):
                         blocking_boxes += 1
 
     return total_distance + blocking_boxes
-
