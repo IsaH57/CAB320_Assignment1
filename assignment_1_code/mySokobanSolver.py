@@ -277,7 +277,7 @@ class SokobanPuzzle(search.Problem):
             #      move.append(direction)
             if not is_box(worker_x + dx, worker_y + dy, boxes) and valid_move(dx, dy):
                 move.append(direction)
-            elif is_box(worker_x + dx, worker_y + dy, boxes) and valid_push(dx, dy):
+            elif is_box(worker_x + dx, worker_y + dy, boxes) and not is_box(worker_x + 2 * dx, worker_y + 2 * dy, boxes) and valid_push(dx, dy):
                 move.append(direction)
 
         return move
@@ -442,7 +442,7 @@ def check_elem_action_seq(warehouse, action_seq):
 
         return x, y
 
-    print("STEP-TEST")
+    #print("STEP-TEST")
     for action in action_seq:
         x, y = move_player(worker[0], worker[1], warehouse, action)
         if x != -1:
@@ -450,12 +450,12 @@ def check_elem_action_seq(warehouse, action_seq):
             warehouse = warehouse.copy(worker, warehouse.boxes, warehouse.weights)
             # TEST TODO remove
             # print("Action " + action + " is not valid")
-            print(str(warehouse))
+            #print(str(warehouse))
             # TEST ENDE
         else:
             # TEST TODO remove
             # print("Action " + action + " is not valid")
-            print(str(warehouse))
+            #print(str(warehouse))
             # TEST ENDE
             warehouse = warehouse.copy(worker, warehouse.boxes, warehouse.weights)
             return DEFAULTRETURN
@@ -503,22 +503,22 @@ def solve_weighted_sokoban(warehouse):
     # print(warehouse_string)
     # goal = warehouse_string.replace("$", " ").replace(".", "*")
     # print(goal)
-
+    DEFAULTRETURN = 'Impossible'
     puzzle = SokobanPuzzle(warehouse)
 
     start = time.time()
-    puzzle_solution = search.breadth_first_graph_search(puzzle)
+    #puzzle_solution = search.breadth_first_graph_search(puzzle)
     #puzzle_solution = search.depth_first_graph_search(puzzle)
-    #puzzle_solution = search.astar_graph_search(puzzle, heuristic5)
+    puzzle_solution = search.astar_graph_search(puzzle, sokoban_heuristic)
 
     # for node in puzzle_solution.path()[1:]:
     #   step_move_solution.append(node.action)
     # print(str(step_move_solution))
-    step_move_solution = puzzle_solution.solution()
-    path_cost = puzzle_solution.path_cost
+    #step_move_solution = puzzle_solution.solution()
+    #path_cost = puzzle_solution.path_cost
 
-    end = time.time()
-    print("Time: " + str(end - start))
+    #end = time.time()
+    #print("Time: " + str(end - start))
     # if SokobanPuzzle.goal_test(warehouse, ):
     #   return step_move_solution, 0
     # TODO enable
@@ -529,12 +529,19 @@ def solve_weighted_sokoban(warehouse):
       'Down', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left']
     # TODO remove
     if puzzle_solution is None:
-        return ['Impossible'], -1
+        end = time.time()
+        print("Time: " + str(end - start))
+        return DEFAULTRETURN, None
     # elif check_elem_action_seq(warehouse, puzzle_solution.action) == "Impossible":
     #   print(str(puzzle_solution.action))
     #  return ['Impossible'], -2
 
     else:
+        step_move_solution = puzzle_solution.solution()
+        path_cost = puzzle_solution.path_cost
+
+        end = time.time()
+        print("Time: " + str(end - start))
         # print("SOL: " + str(puzzle_solution))
         # action_seq = puzzle.actions(puzzle_solution)
         #
@@ -627,3 +634,27 @@ def heuristic5(node):
         heuristic += dist / num_targets
 
     return heuristic
+
+def sokoban_heuristic(node):
+    warehouse = sokoban.Warehouse()
+    warehouse.extract_locations(node.state.split(sep="\n"))
+    total_distance = 0
+    blocking_boxes = 0
+
+    for box in warehouse.boxes:
+        # Berechne die Manhattan-Distanz zwischen der aktuellen Kiste und dem nächsten Ziel
+        min_distance = float('inf')
+        for target in warehouse.targets:
+            distance = abs(box[0] - target[0]) + abs(box[1] - target[1])
+            min_distance = min(min_distance, distance)
+        total_distance += min_distance
+
+        # Überprüfe, ob die aktuelle Kiste eine andere Kiste blockiert
+        for other_box in warehouse.boxes:
+            if box != other_box:
+                if abs(box[0] - other_box[0]) + abs(box[1] - other_box[1]) == 1:
+                    if other_box not in warehouse.targets:
+                        blocking_boxes += 1
+
+    return total_distance + blocking_boxes
+
