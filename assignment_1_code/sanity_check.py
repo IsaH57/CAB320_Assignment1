@@ -20,7 +20,7 @@ try:
 
     print("Using Fred's solver")
 except ModuleNotFoundError:
-    from mySokobanSolver import taboo_cells, solve_weighted_sokoban, check_elem_action_seq
+    from nasya_mySokobanSolver import taboo_cells, solve_weighted_sokoban, check_elem_action_seq
 
     print("Using submitted solver")
 
