@@ -223,6 +223,7 @@ def is_taboo(x, y, taboos):
         return False
 
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class SokobanPuzzle(search.Problem):
     '''
     An instance of the class 'SokobanPuzzle' represents a Sokoban puzzle.
@@ -363,18 +364,25 @@ class SokobanPuzzle(search.Problem):
         wh_state2.from_string(state2)
         wh_state2.weights = self.weights
 
-        # path cost if no boxes are pushed
-        if self.weights == [0, 0]:
+        # path cost if boxes don't have weights
+        if self.weights == [0]:
             return c + 1
 
+        # pushed = False
         # adding the weight to path cost if boxes are pushed
+        print(c)
         for i in range(len(wh_state2.boxes)):
             if wh_state2.boxes[i] != wh_state1.boxes[i]:
                 # add weight of according box
-                c += self.weights[i]
-            else:
-                c += 1
-        return c
+                print("c + weight = " + str(c + self.weights[i]))
+                return c + self.weights[i]
+                # pushed = True
+        # if not pushed:
+        print("c + 1 = " + str(c + 1))
+        return c + 1
+        # pushed = True
+        # print(c)
+        # return c
 
     def goal_test(self, state):
         """Return True if the state is a goal. The default method compares the
@@ -525,7 +533,7 @@ def solve_weighted_sokoban(warehouse):
     # different search algorithms
     # puzzle_solution = search.breadth_first_graph_search(puzzle)
     # puzzle_solution = search.depth_first_graph_search(puzzle)
-    puzzle_solution = search.astar_graph_search(puzzle, heuristic4)
+    puzzle_solution = search.astar_graph_search(puzzle, heuristic7)
 
     if puzzle_solution is None:
         # puzzle cannot be solved
@@ -541,6 +549,7 @@ def solve_weighted_sokoban(warehouse):
 
         end = time.time()
         print("Time: " + str(end - start))
+
         return step_move_solution, path_cost
 
 
@@ -593,12 +602,12 @@ def heuristic3(node):
             dist = 0
             for target in warehouse.targets:
                 dist += manhattan_distance(box, target)
-            heuristic += 0.8 * (dist / num_targets) + 0.5 * manhattan_distance(wh.worker, box)
+            heuristic += 0.8 * (dist / num_targets) + 0.5 * manhattan_distance(warehouse.worker, box)
         else:
             dist1 = []
             for target in warehouse.targets:
                 dist1.append(manhattan_distance(box, target))
-            heuristic += 0.8 * min(dist1) + 0.5 * manhattan_distance(wh.worker, box)
+            heuristic += 0.8 * min(dist1) + 0.5 * manhattan_distance(warehouse.worker, box)
     # print(str(heuristic))
     return heuristic
 
@@ -645,14 +654,12 @@ def heuristic6(node):
     blocking_boxes = 0
 
     for box in warehouse.boxes:
-        # Berechne die Manhattan-Distanz zwischen der aktuellen Kiste und dem nächsten Ziel
         min_distance = float('inf')
         for target in warehouse.targets:
             distance = abs(box[0] - target[0]) + abs(box[1] - target[1])
             min_distance = min(min_distance, distance)
         total_distance += min_distance
 
-        # Überprüfe, ob die aktuelle Kiste eine andere Kiste blockiert
         for other_box in warehouse.boxes:
             if box != other_box:
                 if abs(box[0] - other_box[0]) + abs(box[1] - other_box[1]) == 1:
@@ -660,3 +667,42 @@ def heuristic6(node):
                         blocking_boxes += 1
 
     return total_distance + blocking_boxes
+
+
+def heuristic7(node):
+    warehouse = sokoban.Warehouse()
+    warehouse.extract_locations(node.state.split(sep="\n"))
+
+    # Heuristic Components
+    total_distance = 0
+    blocking_boxes = 0
+    num_targets = len(warehouse.targets)
+    worker_to_box_distance = 0
+
+    # Calculate total Manhattan distance between boxes and targets
+    for box in warehouse.boxes:
+        min_distance = float('inf')
+        for target in warehouse.targets:
+            distance = abs(box[0] - target[0]) + abs(box[1] - target[1])
+            min_distance = min(min_distance, distance)
+        total_distance += min_distance
+
+    # Check for blocking boxes and calculate worker-to-box distance
+    for box in warehouse.boxes:
+        for other_box in warehouse.boxes:
+            if box != other_box:
+                if abs(box[0] - other_box[0]) + abs(box[1] - other_box[1]) == 1:
+                    if other_box not in warehouse.targets:
+                        blocking_boxes += 1
+
+        # Calculate worker-to-box distance
+        worker_to_box_distance += manhattan_distance(warehouse.worker, box)
+
+    # Heuristic Calculation
+    heuristic_value = (
+            total_distance / num_targets  # Component 1: Total Manhattan distance between boxes and targets
+            + 0.5 * blocking_boxes  # Component 2: Penalize blocking boxes
+            + 0.2 * worker_to_box_distance  # Component 3: Worker-to-box distance
+    )
+    # print(heuristic_value)
+    return heuristic_value
