@@ -246,7 +246,7 @@ class Node:
         """List the nodes reachable in one step from this node."""
         print("Actions: " + str(problem.actions(self.state)))
         child = [self.child_node(problem, action)
-                for action in problem.actions(self.state)]
+                 for action in problem.actions(self.state)]
         print("Child: " + "\n" +
               str(child))
         return child
@@ -328,9 +328,9 @@ def graph_search(problem, frontier):
     frontier.append(Node(problem.initial))
     explored = set() # initial empty set of explored states
     while frontier:
-        #print(f"Frontier: {frontier}")
+        print(f"Frontier: {frontier}")
         node = frontier.pop()
-        #print(f"Exploring node: {node.state}")
+        # print(f"Exploring node: {node.state}")
         if problem.goal_test(node.state):
             print("Goal state found!")
             return node
@@ -472,13 +472,13 @@ def iterative_deepening_search(problem):
 greedy_best_first_graph_search = best_first_graph_search
 # Greedy best-first search is accomplished by specifying f(n) = h(n).
 
-#TODO enable!
-#def astar_graph_search(problem, h=None):
-    #"""A* search is best-first graph search with f(n) = g(n)+h(n).
-    #You need to specify the h function when you call astar_search, or
-    #else in your Problem subclass."""
- #   h = memoize(h or problem.h, slot='h')
-  #  return best_first_graph_search(problem, lambda n: n.path_cost + h(n))
+# TODO enable!
+# def astar_graph_search(problem, h=None):
+# """A* search is best-first graph search with f(n) = g(n)+h(n).
+# You need to specify the h function when you call astar_search, or
+# else in your Problem subclass."""
+#   h = memoize(h or problem.h, slot='h')
+#  return best_first_graph_search(problem, lambda n: n.path_cost + h(n))
 
 
 def astar_graph_search(problem, h=None):
@@ -488,11 +488,11 @@ def astar_graph_search(problem, h=None):
     h = memoize(h or problem.h, slot='h')
 
     # Print statement for debugging
-    #print(f'Using heuristic function: {h.__name__}')
+    # print(f'Using heuristic function: {h.__name__}')
 
     def f(n):
         cost = n.path_cost + h(n)
-        #print(f'Calculating f value for node {n}: {cost}')
+        # print(f'Calculating f value for node {n}: {cost}')
         return cost
 
     return best_first_graph_search(problem, f)

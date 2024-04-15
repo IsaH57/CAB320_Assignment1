@@ -4,138 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a878bf0f-fddb-43e8-a656-bc3f52a55e54" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/AIAssignment1.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/Sokoban_assignment-4.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/gui_sokoban.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/crate-in-hole.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/crate.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/hole.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/player-in-hole.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/player.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/smiley.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/images/wall.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/mySokobanSolver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/sanity_check.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/search.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/sokoban.py" afterDir="false" />
+    <list default="true" id="a878bf0f-fddb-43e8-a656-bc3f52a55e54" name="Changes" comment="added new heuristic">
       <change afterPath="$PROJECT_DIR$/assignment_1_code/sol1.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/assignment_1_code/sol2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/testhouse.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_01.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_01_a.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_03.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_03_impossible.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_07.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_09.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_101.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_103.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_105.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_107.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_109.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_11.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_111.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_113.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_115.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_117.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_119.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_121.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_123.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_125.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_127.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_129.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_13.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_131.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_133.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_135.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_137.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_139.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_141.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_143.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_145.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_147.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_149.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_15.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_151.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_153.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_155.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_157.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_159.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_161.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_163.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_165.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_167.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_169.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_17.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_171.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_173.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_175.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_177.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_179.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_181.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_183.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_185.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_187.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_189.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_19.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_191.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_193.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_195.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_197.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_199.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_201.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_203.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_205.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_21.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_23.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_25.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_27.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_29.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_31.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_33.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_35.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_37.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_39.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_41.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_43.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_45.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_47.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_49.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_51.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_53.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_55.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_57.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_59.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_5n.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_61.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_63.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_65.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_67.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_69.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_6n.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_71.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_73.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_75.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_77.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_79.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_81.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_83.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_85.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_87.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_89.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_8a.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_8b.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_91.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_93.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_95.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_97.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_99.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment_1_code/sanity_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignment_1_code/sanity_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment_1_code/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignment_1_code/search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment_1_code/sokoban.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignment_1_code/sokoban.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment_1_code/warehouses/testhouse.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/testhouse.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_43.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_43.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_47.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assignment_1_code/warehouses/warehouse_47.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +28,26 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="state_as_string" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;IsaH57&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="815d13c1-bf64-44b2-af7a-e13bd043d578" />
+        <option name="url" value="https://github.com/IsaH57/CAB320_Assignment1.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -166,27 +63,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Python.debugscript.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui_sokoban.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mySokobanSolver.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sanity_check.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sokoban.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.debugscript.executor": "Run",
+    "Python.gui_sokoban.executor": "Run",
+    "Python.mySokobanSolver.executor": "Run",
+    "Python.sanity_check.executor": "Run",
+    "Python.sokoban.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python.sanity_check">
     <configuration name="gui_sokoban" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AIAssignment1" />
@@ -211,7 +108,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="mySokobanSolver" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="mySokobanSolver_nasya" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AIAssignment1" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -225,7 +122,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/assignment_1_code/mySokobanSolver.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\isabe\OneDrive\Dokumente\Uni\QUT\AI\Assignments\AIAssignment1\assignment_1_code\mySokobanSolver_nasya.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -282,16 +179,17 @@
     </configuration>
     <list>
       <item itemvalue="Python.gui_sokoban" />
-      <item itemvalue="Python.mySokobanSolver" />
       <item itemvalue="Python.sanity_check" />
       <item itemvalue="Python.sokoban" />
+      <item itemvalue="Python.mySokobanSolver_nasya" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.sanity_check" />
-        <item itemvalue="Python.mySokobanSolver" />
-        <item itemvalue="Python.gui_sokoban" />
         <item itemvalue="Python.sokoban" />
+        <item itemvalue="Python.mySokobanSolver_nasya" />
+        <item itemvalue="Python.gui_sokoban" />
+        <item itemvalue="Python.sanity_check" />
       </list>
     </recent_temporary>
   </component>
@@ -319,8 +217,83 @@
       <workItem from="1712545958655" duration="11000" />
       <workItem from="1712545990812" duration="3267000" />
       <workItem from="1712553810559" duration="28319000" />
-      <workItem from="1712637252906" duration="12202000" />
+      <workItem from="1712637252906" duration="49231000" />
+      <workItem from="1712981454426" duration="608000" />
+      <workItem from="1713070628847" duration="15785000" />
     </task>
+    <task id="LOCAL-00001" summary="upload">
+      <option name="closed" value="true" />
+      <created>1712808395646</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712808395647</updated>
+    </task>
+    <task id="LOCAL-00002" summary="changed state to string. doesn't work yet">
+      <option name="closed" value="true" />
+      <created>1712830577659</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712830577659</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fixed actions()">
+      <option name="closed" value="true" />
+      <created>1712837565380</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712837565380</updated>
+    </task>
+    <task id="LOCAL-00004" summary="search algorithms give solutions, path costs added (maybe wrong)">
+      <option name="closed" value="true" />
+      <created>1712887477960</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712887477960</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fixed path_cost()">
+      <option name="closed" value="true" />
+      <created>1712888687889</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712888687889</updated>
+    </task>
+    <task id="LOCAL-00006" summary="changed path">
+      <option name="closed" value="true" />
+      <created>1712888751368</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712888751368</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fixed path_cost()">
+      <option name="closed" value="true" />
+      <created>1712889518995</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712889518995</updated>
+    </task>
+    <task id="LOCAL-00008" summary="adjusted solver for gui">
+      <option name="closed" value="true" />
+      <created>1712904080641</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1712904080641</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added new heuristic">
+      <option name="closed" value="true" />
+      <created>1713183246663</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1713183246664</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,11 +312,31 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="upload" />
+    <MESSAGE value="changed state to string. doesn't work yet" />
+    <MESSAGE value="fixed actions()" />
+    <MESSAGE value="search algorithms give solutions, path costs added (maybe wrong)" />
+    <MESSAGE value="changed path" />
+    <MESSAGE value="fixed path_cost()" />
+    <MESSAGE value="adjusted solver for gui" />
+    <MESSAGE value="added new heuristic" />
+    <option name="LAST_COMMIT_MESSAGE" value="added new heuristic" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AIAssignment1$sanity_check.coverage" NAME="sanity_check Coverage Results" MODIFIED="1712807384512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
-    <SUITE FILE_PATH="coverage/AIAssignment1$gui_sokoban.coverage" NAME="gui_sokoban Coverage Results" MODIFIED="1711513806276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
+    <SUITE FILE_PATH="coverage/AIAssignment1$sanity_check.coverage" NAME="sanity_check Coverage Results" MODIFIED="1713165741825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
+    <SUITE FILE_PATH="coverage/AIAssignment1$gui_sokoban.coverage" NAME="gui_sokoban Coverage Results" MODIFIED="1713164740593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
     <SUITE FILE_PATH="coverage/AIAssignment1$sokoban.coverage" NAME="sokoban Coverage Results" MODIFIED="1711426144320" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
-    <SUITE FILE_PATH="coverage/AIAssignment1$mySokobanSolver.coverage" NAME="mySokobanSolver Coverage Results" MODIFIED="1712557327870" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
+    <SUITE FILE_PATH="coverage/AIAssignment1$mySokobanSolver.coverage" NAME="mySokobanSolver Coverage Results" MODIFIED="1713071003099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assignment_1_code" />
   </component>
 </project>

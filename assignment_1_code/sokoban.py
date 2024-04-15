@@ -101,6 +101,7 @@ class Warehouse:
         Create a warehouse from a string.
         '''
         lines = warehouse_str.split(sep='\n')
+        #print("from string")
         self.from_lines(lines)
 
     def load_warehouse(self, filePath):
@@ -109,7 +110,8 @@ class Warehouse:
         '''
         with open(filePath, 'r') as f:
             # 'lines' is a list of strings (rows of the puzzle) 
-            lines = f.readlines() 
+            lines = f.readlines()
+        #print("load wh")
         self.from_lines(lines)
         # self.weights = None # all boxes are of weight 1
             
@@ -154,7 +156,7 @@ class Warehouse:
         else:
             self.weights = [0] * len(self.boxes)   
         #debug
-        # print(f'{self.weights}')
+        #print("WEIGHTS "+f'{self.weights}')
     
     def save_warehouse(self, filePath):
         '''
@@ -221,7 +223,8 @@ class Warehouse:
                 vis[y][x] = "*"
             else:
                 vis[y][x] = "$"
-        return "\n".join(["".join(line) for line in vis])
+        combined = "\n".join(["".join(line) for line in vis])
+        return combined
 
     # def __eq__(self, other):
     #     return self.worker == other.worker and \
