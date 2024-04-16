@@ -73,7 +73,7 @@ def test_check_elem_action_seq():
 
 def test_solve_weighted_sokoban():
     wh = Warehouse()
-    wh.load_warehouse("./warehouses/warehouse_8a.txt")
+    wh.load_warehouse("./warehouses/warehouse_09.txt")
     #wh.load_warehouse("./warehouses/testhouse.txt")
     # first test
     answer, cost = solve_weighted_sokoban(wh)
@@ -82,10 +82,12 @@ def test_solve_weighted_sokoban():
                        'Down', 'Right', 'Right', 'Right', 'Up', 'Up', 'Left',
                        'Down', 'Right', 'Down', 'Left', 'Left', 'Right',
                        'Right', 'Right', 'Right', 'Right', 'Right', 'Right']
-    my_expected_answer = ['Down', 'Down']
+    my_expected_answer = ['Up', 'Right', 'Right', 'Down', 'Up', 'Left', 'Left', 'Down', 'Right', 'Down', 'Right', 'Left', 'Up', 'Up', 'Right', 'Down', 'Right',
+'Down', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left', 'Down', 'Left', 'Up', 'Right', 'Up', 'Left']
     expected_cost = 431
+    my_expected_cost = 396
     print('<<  test_solve_weighted_sokoban >>')
-    if answer == answer:
+    if answer == my_expected_answer:
         print(' Answer as expected!  :-)\n')
         print('Answer: ' + str(answer))
     else:
@@ -93,10 +95,10 @@ def test_solve_weighted_sokoban():
         print('Expected ');
         print(answer)
         print('But, received ');
-        print(answer)
+        print(my_expected_answer)
         # print('Your answer is different but it might still be correct')
         # print('Check that you pushed the right box onto the left target!')
-    print(f'Your cost = {cost}, expected cost = {expected_cost}')
+    print(f'Your cost = {cost}, expected cost = {my_expected_cost}')
 
 
 if __name__ == "__main__":

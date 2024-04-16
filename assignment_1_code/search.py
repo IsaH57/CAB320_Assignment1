@@ -244,11 +244,11 @@ class Node:
 
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""
-        print("Actions: " + str(problem.actions(self.state)))
+        #print("Actions: " + str(problem.actions(self.state)))
         child = [self.child_node(problem, action)
                  for action in problem.actions(self.state)]
-        print("Child: " + "\n" +
-              str(child))
+        #print("Child: " + "\n" +
+              #str(child))
         return child
 
     def child_node(self, problem, action):
@@ -328,7 +328,7 @@ def graph_search(problem, frontier):
     frontier.append(Node(problem.initial))
     explored = set() # initial empty set of explored states
     while frontier:
-        print(f"Frontier: {frontier}")
+        #print(f"Frontier: {frontier}")
         node = frontier.pop()
         # print(f"Exploring node: {node.state}")
         if problem.goal_test(node.state):
